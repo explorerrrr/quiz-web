@@ -17,20 +17,20 @@
 </head>
 <body>
     <div class="block has-background-success" style="padding: 5% 10%;">
-        <form id="app" class="box transparent">
-            <div class="block" v-for="(quesAnswer, index) in QuestionAns">
+        <form id="app" class="box transparent" @submit.prevent="submitForm">
+            <div class="block" v-for="(quesAnswer, index1) in QuestionAns">
                 <div class="card transparent">
-                    <header class="card-header"><p class="card-header-title">{{index + 1}}. {{quesAnswer.question.content}}</p></header>
+                    <header class="card-header"><p class="card-header-title">{{index1 + 1}}. {{quesAnswer.question.content}}({{quesAnswer.question.score}}points)</p></header>
                     <div class="card-content">
                         
                         <div class="content">
                             
                             <div class="control">
-                                <ol class="is-lower-alpha">
-                                    <li v-for="(answer, index) in quesAnswer.answers">
+                                <ol style="list-style-position: inside; padding-left: 0;" class="is-lower-alpha">
+                                    <li v-for="(answer, index2) in quesAnswer.answers">
                                         <label class="radio">
-                                            <input type="radio" name="answer">
-                                             {{answer.content}}
+                                            <input type="radio" v-bind:name="answer.correspondsQId" :value="answer.id" v-model="radioValue[index1]">
+                                             {{answer.content}} 双向绑定的value：{{radioValue}}
                                         </label>
                                     </li>
 
@@ -42,14 +42,15 @@
                 </div>
             </div>
           
-            <button class="button is-primary">submit</button>
+            <button type="submit" class="button is-primary">submit</button>
         </form>
     </div>
     <script>
         new Vue({
             el: "#app",
             data:{
-                QuestionAns:[]
+                QuestionAns:[],
+                radioValue:[]
             },
         
             mounted() {
@@ -59,10 +60,23 @@
                         }
                     }).catch((err) => {
                         alert("error");
-                    });;
+                    });
             },
-            method:{
-               
+            methods:{
+               submitForm(){
+                    if(confirm("Submit confirmation")){
+                        this.formData = {value:"adfsadf"};
+
+                        axios.post("/quizResult",{"answerId":this.radioValue}).then(res => {
+                            alert("success");
+                        }).catch(err => {
+                            alert("error");
+                        });
+                    }
+                    else{
+
+                    }
+               }
             }
         })
     </script>
