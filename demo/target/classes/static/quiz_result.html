@@ -22,20 +22,19 @@
 
                     <header class="card-header">
                     <p class="card-header-title">
-                        Quiz Result: <span style="color: red;">You Passed/Failed</span>
-                        <span class="icon">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </span>
+                        Quiz Result: <span style="color: red;" v-show="totalScore>=600">You Passed</span>
+                                        <span style="color: red;" v-show="totalScore< 600">You Failed</span>
+                        
                     </p>
                     </header>
         
                     <div class="card-content">
                     <div class="content">
                         <strong>Your quiz results are as follows:</strong> <br>
-                        <div style="color: black;">1. Total score: <strong>{{totalScore}}</strong>.</div> 
+                        <div style="color: black;">1. Total score: <strong style="color: red;">{{totalScore}}</strong>.</div> 
                         <div style="color: black;">2. Number of correct answers: {{20-QuestionAns.length}}.</div>
                         <div style="color: black;">3. Number of wrong answers: {{QuestionAns.length}}.</div>
-                        <div style="color: black;">4. The list of wrong answers: .</div> <br>
+                        <div style="color: black;">4. The list of wrong answers: </div> <br>
                         
                     </div>
 
@@ -46,16 +45,8 @@
                                 
                                 <div class="content">
                                     
-                                    <div class="control">
-                                        <ol style="list-style-position: inside; padding-left: 0;" class="is-lower-alpha">
-                                            <li >
-                                                    
-                                                     {{quesAnswer.answer.content}} 
-                                            </li>
-        
-                                        </ol>    
-                                    </div>   
-                                 
+                                    correct answer: {{quesAnswer.correcAnswer.content}} 
+                                            
                                 </div>
                             </div>
                         </div>
@@ -108,7 +99,7 @@
 
             methods: {
                 goToNextPage(){
-                    window.location.href = './quiz_ongoing.html';
+                    window.location.href = './start_page.html';
                 },
                 
                 closeDialog(){

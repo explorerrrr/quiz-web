@@ -26,11 +26,11 @@
                         <div class="content">
                             
                             <div class="control">
-                                <ol style="list-style-position: inside; padding-left: 0;" class="is-lower-alpha">
+                                <ol style="list-style-position: inside;" class="is-lower-alpha">
                                     <li v-for="(answer, index2) in quesAnswer.answers">
                                         <label class="radio">
                                             <input type="radio" v-bind:name="answer.correspondsQId" :value="answer.id" v-model="radioValue[index1]">
-                                             {{answer.content}} --------------{{radioValue}}
+                                             {{answer.content}}
                                         </label>
                                     </li>
 
