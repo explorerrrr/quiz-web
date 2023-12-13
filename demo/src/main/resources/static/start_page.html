@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <style>
+        .transparent{
+            background: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+    <title>Start</title>
+</head>
+
+<body style="background-image: url('./assets/ocean.jpeg'); background-position: center; background-size: cover; height:100vh;">
+    
+    <div id="app" class="block" style="padding: 2% 25%">
+        <div class="block">
+            <div  v-show="isDialogOpen">
+                <div class="card transparent" style="z-index: 2;">
+
+                    <header class="card-header">
+                    <p class="card-header-title">
+                        Confirmation
+                        <span class="icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                    </p>
+                    </header>
+        
+                    <div class="card-content">
+                    <div class="content">
+                        <strong>The rules for this quiz are as follows:</strong> <br>
+                        <div style="color: black;">1. There are a total of 20 multiple-choice questions, with a total score of 1000 points.</div> 
+                        <div style="color: black;">2. Questions 1-3 are worth 100 points each, questions 4-7 are worth 75 points each, questions 8-12 are worth 40 points each, and questions 13-20 are worth 25 points each.</div>
+                        <div style="color: black;">3. Each question has only one correct answer. Please select the answer you believe is correct.</div>
+                        <div style="color: black;">4. To pass, you need a total score of 600 points or above.</div> <br>
+                        <strong>If you are ready to take the quiz, please click "Yes"; otherwise, click "No" to cancel.</strong>
+                    </div>
+                    </div>
+        
+                    <footer class="card-footer">
+                    <div class="card-footer-item">
+                        <button class="button is-rounded is-info is-outlined" @click="goToNextPage()">
+                            <span class="icon">
+                            <i class="fas fa-check"></i>
+                            </span>
+                            <span>Yes</span>
+                        </button>
+                    </div>
+                    <div class="card-footer-item">
+                        <button class="button is-rounded is-danger is-outlined" @click="closeDialog()">
+                            <span>No</span>
+                            <span class="icon">
+                            <i class="fas fa-times"></i>
+                            </span>
+                        </button>
+                    </div>
+                    </footer>
+        
+                </div>
+                <!-- confirmation card -->
+            </div>
+        </div>
+        <div class="modal is-active" v-if="! isDialogOpen" style="z-index: 1;"><button class="button is-danger is-rounded is-large" @click="openDialog()">Get Started!</button></div>
+                
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data:{
+                isDialogOpen: false
+            },
+            methods: {
+                goToNextPage(){
+                    window.location.href = './quiz_ongoing.html';
+                },
+                openDialog(){
+                    this.isDialogOpen = true;
+                },
+                closeDialog(){
+                    this.isDialogOpen = false;
+                }
+            }
+        })
+    </script>
+    
+
+</body>
+</html>
