@@ -1,0 +1,13 @@
+quiz\pojo\ResultWrong.class
+quiz\service\questionsService.class
+quiz\service\Impl\quizResultServiceImpl.class
+quiz\service\quizResultService.class
+quiz\pojo\Question.class
+quiz\pojo\Result.class
+quiz\service\Impl\questionsServiceImpl.class
+quiz\pojo\QuizAnswers.class
+quiz\pojo\Answer.class
+quiz\mapper\questionsMapper.class
+quiz\DemoApplication.class
+quiz\controller\QuizController.class
+quiz\pojo\QuestionAns.class

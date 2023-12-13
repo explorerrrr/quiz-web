@@ -6,23 +6,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
     <style>
         .transparent{
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.6);
         }
     </style>
     <title>Quiz Result</title>
 </head>
 
-<body style="background-image: url('./assets/ocean.jpeg'); background-position: center; background-size: cover; height:100vh;">
-    
-    <div id="app" class="block" style="padding: 2% 25%">
+<body>
+    <div id="app" class="block has-background-success" style="padding: 5% 10%;">
         <div class="block">
-                <div class="card transparent" style="z-index: 2;">
+                <div id="app" class="card transparent">
 
                     <header class="card-header">
                     <p class="card-header-title">
-                        Confirmation
+                        Quiz Result: <span style="color: red;">You Passed/Failed</span>
                         <span class="icon">
                             <i class="fas fa-exclamation-triangle"></i>
                         </span>
@@ -31,13 +31,36 @@
         
                     <div class="card-content">
                     <div class="content">
-                        <strong>The rules for this quiz are as follows:</strong> <br>
-                        <div style="color: black;">1. There are a total of 20 multiple-choice questions, with a total score of 1000 points.</div> 
-                        <div style="color: black;">2. Questions 1-3 are worth 100 points each, questions 4-7 are worth 75 points each, questions 8-12 are worth 40 points each, and questions 13-20 are worth 25 points each.</div>
-                        <div style="color: black;">3. Each question has only one correct answer. Please select the answer you believe is correct.</div>
-                        <div style="color: black;">4. To pass, you need a total score of 600 points or above.</div> <br>
-                        <strong>If you are ready to take the quiz, please click "Yes"; otherwise, click "No" to cancel.</strong>
+                        <strong>Your quiz results are as follows:</strong> <br>
+                        <div style="color: black;">1. Total score: <strong>{{totalScore}}</strong>.</div> 
+                        <div style="color: black;">2. Number of correct answers: {{20-QuestionAns.length}}.</div>
+                        <div style="color: black;">3. Number of wrong answers: {{QuestionAns.length}}.</div>
+                        <div style="color: black;">4. The list of wrong answers: .</div> <br>
+                        
                     </div>
+
+                    <div class="block" v-for="(quesAnswer, index1) in QuestionAns">
+                        <div class="card transparent">
+                            <header class="card-header"><p class="card-header-title">{{index1 + 1}}. {{quesAnswer.question.content}}({{quesAnswer.question.score}}points)</p></header>
+                            <div class="card-content">
+                                
+                                <div class="content">
+                                    
+                                    <div class="control">
+                                        <ol style="list-style-position: inside; padding-left: 0;" class="is-lower-alpha">
+                                            <li >
+                                                    
+                                                     {{quesAnswer.answer.content}} 
+                                            </li>
+        
+                                        </ol>    
+                                    </div>   
+                                 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     </div>
         
                     <footer class="card-footer">
@@ -70,15 +93,25 @@
         new Vue({
             el: "#app",
             data:{
-                isDialogOpen: false
+                totalScore:'',
+                QuestionAns:[]
             },
+
+            mounted() {
+                axios.get("/resultList").then((result) => {
+                    this.totalScore = result.data.code;
+                    this.QuestionAns = result.data.data;
+                }).catch((err) => {
+                    alert("error");
+                });
+            },
+
             methods: {
                 goToNextPage(){
                     window.location.href = './quiz_ongoing.html';
                 },
                 
                 closeDialog(){
-                    this.isDialogOpen = false;
                 }
             }
         })

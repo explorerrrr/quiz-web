@@ -30,7 +30,7 @@
                                     <li v-for="(answer, index2) in quesAnswer.answers">
                                         <label class="radio">
                                             <input type="radio" v-bind:name="answer.correspondsQId" :value="answer.id" v-model="radioValue[index1]">
-                                             {{answer.content}}
+                                             {{answer.content}} --------------{{radioValue}}
                                         </label>
                                     </li>
 
@@ -64,19 +64,29 @@
             },
             methods:{
                submitForm(){
-                    if(confirm("Submit confirmation")){
-                        this.formData = {value:"adfsadf"};
-
-                        axios.post("/quizResult",{"answerId":this.radioValue}).then(res => {
-                            alert("success");
-                        }).catch(err => {
-                            alert("error");
-                        });
-                        window.location.href = "./quiz_result.html";
+                    if(this.radioValue.length<20){
+                        alert("There are some questions empty, please fill them");
                     }
                     else{
+                        for (let index = 0; index < this.radioValue.length; index++) {
+                            const element = this.radioValue[index];
+                            if(element==null){
+                                alert("There are some questions empty, please fill them");
+                                return;
+                            }
+                        }
 
+                        if(confirm("Submit confirmation")){
+                            axios.post("/quizResult",{"answerId":this.radioValue}).then(res => {
+                                alert("quizResult post success");
+                            }).catch(err => {
+                                alert("quizResult post error");
+                            });
+                            window.location.href = "./quiz_result.html";
+                        }
                     }
+                    
+                    
                }
             }
         })
