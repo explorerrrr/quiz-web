@@ -30,7 +30,7 @@
                                     <li v-for="(answer, index2) in quesAnswer.answers">
                                         <label class="radio">
                                             <input type="radio" v-bind:name="answer.correspondsQId" :value="answer.id" v-model="radioValue[index1]">
-                                             {{answer.content}} 双向绑定的value：{{radioValue}}
+                                             {{answer.content}}
                                         </label>
                                     </li>
 
