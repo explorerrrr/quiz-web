@@ -1,4 +1,5 @@
 package quiz.controller;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -10,15 +11,12 @@ import quiz.service.questionsService;
 import quiz.service.quizResultService;
 import quiz.pojo.Result;
 import quiz.pojo.QuizAnswers;
-import quiz.pojo.Answer;
-import quiz.pojo.Question;
 import quiz.pojo.QuestionAns;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -45,7 +43,8 @@ public class QuizController {
     @PostMapping("/quizResult")
     public Result quizResult(@RequestBody QuizAnswers quizAnswer, HttpSession session){    //receive quiz result and create a session
         session.setAttribute("answerId", quizAnswer.getAnswerId());
-        System.out.println(quizAnswer.getAnswerId()[0]);
+        System.out.println(Arrays.toString(quizAnswer.getAnswerId()));
+        System.out.println(quizAnswer.getAnswerId());
         
         return Result.success();
     }

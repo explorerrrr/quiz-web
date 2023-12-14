@@ -1,6 +1,7 @@
 package quiz.service.Impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,7 +39,10 @@ public class questionsServiceImpl implements questionsService{
             elementAnswers = answers.stream().filter(answer -> answer.getCorrespondsQId()==element.getId()).collect(Collectors.toList());
             quesAnswers.add(new QuestionAns(element, elementAnswers));
         });
-
+        quesAnswers.stream().forEach(element -> {
+            Collections.shuffle(element.getAnswers());     //make a random order of answers
+        });
+        Collections.shuffle(quesAnswers);                 //make a random order of questions
         return quesAnswers;
     }
 }

@@ -26,7 +26,7 @@
                         <div class="content">
                             
                             <div class="control">
-                                <ol style="list-style-position: inside;" class="is-lower-alpha">
+                                <ol class="is-lower-alpha">
                                     <li v-for="(answer, index2) in quesAnswer.answers">
                                         <label class="radio">
                                             <input type="radio" v-bind:name="answer.correspondsQId" :value="answer.id" v-model="radioValue[index1]">
@@ -78,7 +78,7 @@
 
                         if(confirm("Submit confirmation")){
                             axios.post("/quizResult",{"answerId":this.radioValue}).then(res => {
-                                alert("quizResult post success");
+                               
                             }).catch(err => {
                                 alert("quizResult post error");
                             });
