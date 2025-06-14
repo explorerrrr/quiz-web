@@ -44,16 +44,15 @@ public class QuizController {
     public Result quizResult(@RequestBody QuizAnswers quizAnswer, HttpSession session){    //receive quiz result and create a session
         session.setAttribute("answerId", quizAnswer.getAnswerId());
         System.out.println(Arrays.toString(quizAnswer.getAnswerId()));
-        System.out.println(quizAnswer.getAnswerId());
-        
+        System.out.println("session:"+session.getId());
         return Result.success();
     }
     
     @GetMapping("/resultList")
     public Result resultList(HttpSession session){
         Integer[] answerId =(Integer[]) session.getAttribute("answerId");
+        System.out.println("session:"+session.getId());
         System.out.println(answerId[19]);
-        
         
         Result res = quizService.wrongResultList(answerId);
 
